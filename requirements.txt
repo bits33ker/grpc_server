@@ -1,0 +1,11 @@
+rx>=3.0
+scipy>=1.0
+wheel>=0.37
+cyclotron>=1.2
+cyclotron-aiohttp>=1.0
+cyclotron-std>=1.0
+av==8.0.2
+numpy
+deepspeech-gpu==0.9.3
+grpcio
+grpcio-tools
