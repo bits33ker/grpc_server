@@ -15,6 +15,7 @@
 
 import asyncio
 import logging
+import time
 
 import grpc
 import speech_pb2

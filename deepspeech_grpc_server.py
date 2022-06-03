@@ -15,6 +15,7 @@
 
 import asyncio
 import logging
+import time
 
 import grpc
 import speech_pb2
@@ -44,6 +45,16 @@ class GrpcSpeech(speech_pb2_grpc.SpeechServicer):
                 raise RuntimeError("Unable to set beam width")
 
         print("model is ready.")
+
+    async def StreamingRecognize(self, request_iterator, context):
+        start_time = time.time()
+        audio_count = 0
+        for audio in request_iterator:
+            audio_count += 1
+            
+        elapsed_time = time.time() - start_time
+        return speech_pb2.RecognizeResponse(text='response')
+
 
     async def Recognize(
             self, request: speech_pb2.RecognizeRequest,

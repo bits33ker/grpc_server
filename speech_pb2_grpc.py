@@ -19,6 +19,11 @@ class SpeechStub(object):
                 request_serializer=speech__pb2.RecognizeRequest.SerializeToString,
                 response_deserializer=speech__pb2.RecognizeResponse.FromString,
                 )
+        self.StreamingRecognize = channel.stream_unary(
+                '/Speech/StreamingRecognize',
+                request_serializer=speech__pb2.StreamingRecognizeRequest.SerializeToString,
+                response_deserializer=speech__pb2.RecognizeResponse.FromString,
+                )
         self.EchoTest = channel.unary_unary(
                 '/Speech/EchoTest',
                 request_serializer=speech__pb2.RecognizeTest.SerializeToString,
@@ -37,6 +42,14 @@ class SpeechServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def StreamingRecognize(self, request_iterator, context):
+        """Performs bidirectional streaming speech recognition: receive results while
+        sending audio. This method is only available via the gRPC API (not REST).
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def EchoTest(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -49,6 +62,11 @@ def add_SpeechServicer_to_server(servicer, server):
             'Recognize': grpc.unary_unary_rpc_method_handler(
                     servicer.Recognize,
                     request_deserializer=speech__pb2.RecognizeRequest.FromString,
+                    response_serializer=speech__pb2.RecognizeResponse.SerializeToString,
+            ),
+            'StreamingRecognize': grpc.stream_unary_rpc_method_handler(
+                    servicer.StreamingRecognize,
+                    request_deserializer=speech__pb2.StreamingRecognizeRequest.FromString,
                     response_serializer=speech__pb2.RecognizeResponse.SerializeToString,
             ),
             'EchoTest': grpc.unary_unary_rpc_method_handler(
@@ -79,6 +97,23 @@ class Speech(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Speech/Recognize',
             speech__pb2.RecognizeRequest.SerializeToString,
+            speech__pb2.RecognizeResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def StreamingRecognize(request_iterator,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.stream_unary(request_iterator, target, '/Speech/StreamingRecognize',
+            speech__pb2.StreamingRecognizeRequest.SerializeToString,
             speech__pb2.RecognizeResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
