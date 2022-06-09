@@ -16,6 +16,7 @@
 import asyncio
 import logging
 import time
+from typing import AsyncIterable, Iterable
 
 import grpc
 import speech_pb2
@@ -26,8 +27,8 @@ import argparse
 from scipy.io import wavfile
 import numpy as np
 import io
-import wave
 import av
+import audioop
 
 class GrpcSpeech(speech_pb2_grpc.SpeechServicer):
     def __init__(self, model_path, scorer, beam_width, lm_alpha, lm_beta):
@@ -46,14 +47,29 @@ class GrpcSpeech(speech_pb2_grpc.SpeechServicer):
 
         print("model is ready.")
 
-    async def StreamingRecognize(self, request_iterator, context):
+    async def StreamingRecognize(self, request_iterator: AsyncIterable[
+            speech_pb2.StreamingRecognizeRequest],
+            context: grpc.aio.ServicerContext) -> speech_pb2.RecognizeResponse:       
         start_time = time.time()
         audio_count = 0
-        for audio in request_iterator:
+        resampled_frames = []
+        async for audio in request_iterator:
+            #print('StreamingRecognize ' + str(audio_count))
             audio_count += 1
+            i16 = audioop.ulaw2lin(audio.data, 2)
+            #l = len(audio.data);
+            for d in range(0, int(len(i16)/2)):
+                data = int.from_bytes(i16[d*2:d*2+2], byteorder='little', signed=True)
+                resampled_frames.append(data)
+            #print(i16[0:10])
+            #resampled_frames.append(i16)
             
         elapsed_time = time.time() - start_time
-        return speech_pb2.RecognizeResponse(text='response')
+        #data16 = np.concatenate(resampled_frames, dtype=np.int16)
+        text = self.model.stt(resampled_frames)#data.astype(np.int16)
+        #text = 'Hola Streaming Process'
+        print("STT result: {}".format(text))
+        return speech_pb2.RecognizeResponse(text=text)
 
 
     async def Recognize(

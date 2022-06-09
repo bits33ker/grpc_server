@@ -14,56 +14,23 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0cspeech.proto\"\xdf\x02\n\x11RecognitionConfig\x12\x32\n\x08\x65ncoding\x18\x01 \x02(\x0e\x32 .RecognitionConfig.AudioEncoding\x12\x19\n\x11sample_rate_hertz\x18\x02 \x02(\x05\x12\x15\n\rlanguage_code\x18\x03 \x02(\t\x12\x18\n\x10max_alternatives\x18\x04 \x01(\x05\x12\x1e\n\x16\x65nable_word_confidence\x18\x05 \x01(\x08\x12\r\n\x05model\x18\x06 \x01(\t\"\x9a\x01\n\rAudioEncoding\x12\x18\n\x14\x45NCODING_UNSPECIFIED\x10\x00\x12\x0c\n\x08LINEAR16\x10\x01\x12\x08\n\x04\x46LAC\x10\x02\x12\t\n\x05MULAW\x10\x03\x12\x07\n\x03\x41MR\x10\x04\x12\n\n\x06\x41MR_WB\x10\x05\x12\x0c\n\x08OGG_OPUS\x10\x06\x12\x1a\n\x16SPEEX_WITH_HEADER_BYTE\x10\x07\x12\r\n\tWEBM_OPUS\x10\t\"D\n\x10RecognitionAudio\x12\x11\n\x07\x63ontent\x18\x01 \x01(\x0cH\x00\x12\r\n\x03uri\x18\x02 \x01(\tH\x00\x42\x0e\n\x0c\x61udio_source\"`\n\x1cSpeechRecognitionAlternative\x12\x12\n\ntranscript\x18\x01 \x01(\t\x12\x12\n\nconfidence\x18\x02 \x02(\x02\x12\x18\n\x05words\x18\x03 \x03(\x0b\x32\t.WordInfo\"R\n\x08WordInfo\x12\x12\n\nstart_time\x18\x01 \x01(\x05\x12\x10\n\x08\x65nd_time\x18\x02 \x01(\x05\x12\x0c\n\x04word\x18\x03 \x02(\t\x12\x12\n\nconfidence\x18\x04 \x01(\x02\"~\n\x17SpeechRecognitionResult\x12\x33\n\x0c\x61lternatives\x18\x01 \x03(\x0b\x32\x1d.SpeechRecognitionAlternative\x12\x17\n\x0fresult_end_time\x18\x04 \x01(\x05\x12\x15\n\rlanguage_code\x18\x05 \x01(\t\"\x1c\n\rRecognizeTest\x12\x0b\n\x03msg\x18\x01 \x02(\t\"!\n\x11RecognizeTestEcho\x12\x0c\n\x04\x65\x63ho\x18\x01 \x02(\t\" \n\x10RecognizeRequest\x12\x0c\n\x04\x64\x61ta\x18\x01 \x02(\t\"!\n\x11RecognizeResponse\x12\x0c\n\x04text\x18\x01 \x02(\t\")\n\x19StreamingRecognizeRequest\x12\x0c\n\x04\x64\x61ta\x18\x01 \x02(\t\"*\n\x1aStreamingRecognizeResponse\x12\x0c\n\x04text\x18\x01 \x02(\t2\xba\x01\n\x06Speech\x12\x34\n\tRecognize\x12\x11.RecognizeRequest\x1a\x12.RecognizeResponse\"\x00\x12H\n\x12StreamingRecognize\x12\x1a.StreamingRecognizeRequest\x1a\x12.RecognizeResponse\"\x00(\x01\x12\x30\n\x08\x45\x63hoTest\x12\x0e.RecognizeTest\x1a\x12.RecognizeTestEcho\"\x00')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0cspeech.proto\"R\n\x08WordInfo\x12\x12\n\nstart_time\x18\x01 \x01(\x05\x12\x10\n\x08\x65nd_time\x18\x02 \x01(\x05\x12\x0c\n\x04word\x18\x03 \x02(\t\x12\x12\n\nconfidence\x18\x04 \x01(\x02\"\x1c\n\rRecognizeTest\x12\x0b\n\x03msg\x18\x01 \x02(\t\"!\n\x11RecognizeTestEcho\x12\x0c\n\x04\x65\x63ho\x18\x01 \x02(\t\" \n\x10RecognizeRequest\x12\x0c\n\x04\x64\x61ta\x18\x01 \x02(\t\"!\n\x11RecognizeResponse\x12\x0c\n\x04text\x18\x01 \x02(\t\")\n\x19StreamingRecognizeRequest\x12\x0c\n\x04\x64\x61ta\x18\x01 \x02(\x0c\"*\n\x1aStreamingRecognizeResponse\x12\x0c\n\x04text\x18\x01 \x02(\t2\xba\x01\n\x06Speech\x12\x34\n\tRecognize\x12\x11.RecognizeRequest\x1a\x12.RecognizeResponse\"\x00\x12H\n\x12StreamingRecognize\x12\x1a.StreamingRecognizeRequest\x1a\x12.RecognizeResponse\"\x00(\x01\x12\x30\n\x08\x45\x63hoTest\x12\x0e.RecognizeTest\x1a\x12.RecognizeTestEcho\"\x00')
 
 
 
-_RECOGNITIONCONFIG = DESCRIPTOR.message_types_by_name['RecognitionConfig']
-_RECOGNITIONAUDIO = DESCRIPTOR.message_types_by_name['RecognitionAudio']
-_SPEECHRECOGNITIONALTERNATIVE = DESCRIPTOR.message_types_by_name['SpeechRecognitionAlternative']
 _WORDINFO = DESCRIPTOR.message_types_by_name['WordInfo']
-_SPEECHRECOGNITIONRESULT = DESCRIPTOR.message_types_by_name['SpeechRecognitionResult']
 _RECOGNIZETEST = DESCRIPTOR.message_types_by_name['RecognizeTest']
 _RECOGNIZETESTECHO = DESCRIPTOR.message_types_by_name['RecognizeTestEcho']
 _RECOGNIZEREQUEST = DESCRIPTOR.message_types_by_name['RecognizeRequest']
 _RECOGNIZERESPONSE = DESCRIPTOR.message_types_by_name['RecognizeResponse']
 _STREAMINGRECOGNIZEREQUEST = DESCRIPTOR.message_types_by_name['StreamingRecognizeRequest']
 _STREAMINGRECOGNIZERESPONSE = DESCRIPTOR.message_types_by_name['StreamingRecognizeResponse']
-_RECOGNITIONCONFIG_AUDIOENCODING = _RECOGNITIONCONFIG.enum_types_by_name['AudioEncoding']
-RecognitionConfig = _reflection.GeneratedProtocolMessageType('RecognitionConfig', (_message.Message,), {
-  'DESCRIPTOR' : _RECOGNITIONCONFIG,
-  '__module__' : 'speech_pb2'
-  # @@protoc_insertion_point(class_scope:RecognitionConfig)
-  })
-_sym_db.RegisterMessage(RecognitionConfig)
-
-RecognitionAudio = _reflection.GeneratedProtocolMessageType('RecognitionAudio', (_message.Message,), {
-  'DESCRIPTOR' : _RECOGNITIONAUDIO,
-  '__module__' : 'speech_pb2'
-  # @@protoc_insertion_point(class_scope:RecognitionAudio)
-  })
-_sym_db.RegisterMessage(RecognitionAudio)
-
-SpeechRecognitionAlternative = _reflection.GeneratedProtocolMessageType('SpeechRecognitionAlternative', (_message.Message,), {
-  'DESCRIPTOR' : _SPEECHRECOGNITIONALTERNATIVE,
-  '__module__' : 'speech_pb2'
-  # @@protoc_insertion_point(class_scope:SpeechRecognitionAlternative)
-  })
-_sym_db.RegisterMessage(SpeechRecognitionAlternative)
-
 WordInfo = _reflection.GeneratedProtocolMessageType('WordInfo', (_message.Message,), {
   'DESCRIPTOR' : _WORDINFO,
   '__module__' : 'speech_pb2'
   # @@protoc_insertion_point(class_scope:WordInfo)
   })
 _sym_db.RegisterMessage(WordInfo)
-
-SpeechRecognitionResult = _reflection.GeneratedProtocolMessageType('SpeechRecognitionResult', (_message.Message,), {
-  'DESCRIPTOR' : _SPEECHRECOGNITIONRESULT,
-  '__module__' : 'speech_pb2'
-  # @@protoc_insertion_point(class_scope:SpeechRecognitionResult)
-  })
-_sym_db.RegisterMessage(SpeechRecognitionResult)
 
 RecognizeTest = _reflection.GeneratedProtocolMessageType('RecognizeTest', (_message.Message,), {
   'DESCRIPTOR' : _RECOGNIZETEST,
@@ -111,30 +78,20 @@ _SPEECH = DESCRIPTOR.services_by_name['Speech']
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _RECOGNITIONCONFIG._serialized_start=17
-  _RECOGNITIONCONFIG._serialized_end=368
-  _RECOGNITIONCONFIG_AUDIOENCODING._serialized_start=214
-  _RECOGNITIONCONFIG_AUDIOENCODING._serialized_end=368
-  _RECOGNITIONAUDIO._serialized_start=370
-  _RECOGNITIONAUDIO._serialized_end=438
-  _SPEECHRECOGNITIONALTERNATIVE._serialized_start=440
-  _SPEECHRECOGNITIONALTERNATIVE._serialized_end=536
-  _WORDINFO._serialized_start=538
-  _WORDINFO._serialized_end=620
-  _SPEECHRECOGNITIONRESULT._serialized_start=622
-  _SPEECHRECOGNITIONRESULT._serialized_end=748
-  _RECOGNIZETEST._serialized_start=750
-  _RECOGNIZETEST._serialized_end=778
-  _RECOGNIZETESTECHO._serialized_start=780
-  _RECOGNIZETESTECHO._serialized_end=813
-  _RECOGNIZEREQUEST._serialized_start=815
-  _RECOGNIZEREQUEST._serialized_end=847
-  _RECOGNIZERESPONSE._serialized_start=849
-  _RECOGNIZERESPONSE._serialized_end=882
-  _STREAMINGRECOGNIZEREQUEST._serialized_start=884
-  _STREAMINGRECOGNIZEREQUEST._serialized_end=925
-  _STREAMINGRECOGNIZERESPONSE._serialized_start=927
-  _STREAMINGRECOGNIZERESPONSE._serialized_end=969
-  _SPEECH._serialized_start=972
-  _SPEECH._serialized_end=1158
+  _WORDINFO._serialized_start=16
+  _WORDINFO._serialized_end=98
+  _RECOGNIZETEST._serialized_start=100
+  _RECOGNIZETEST._serialized_end=128
+  _RECOGNIZETESTECHO._serialized_start=130
+  _RECOGNIZETESTECHO._serialized_end=163
+  _RECOGNIZEREQUEST._serialized_start=165
+  _RECOGNIZEREQUEST._serialized_end=197
+  _RECOGNIZERESPONSE._serialized_start=199
+  _RECOGNIZERESPONSE._serialized_end=232
+  _STREAMINGRECOGNIZEREQUEST._serialized_start=234
+  _STREAMINGRECOGNIZEREQUEST._serialized_end=275
+  _STREAMINGRECOGNIZERESPONSE._serialized_start=277
+  _STREAMINGRECOGNIZERESPONSE._serialized_end=319
+  _SPEECH._serialized_start=322
+  _SPEECH._serialized_end=508
 # @@protoc_insertion_point(module_scope)

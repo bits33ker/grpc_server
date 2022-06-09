@@ -19,14 +19,45 @@ import logging
 import grpc
 import speech_pb2
 import speech_pb2_grpc
+from typing import Iterable, List
 
+import av
+import numpy as np
+import audioop
+
+def read_wav(wavfile):
+    audio = av.open(wavfile)
+    if len(audio.streams.audio) > 1:
+        logging.warning("Audio has more than one stream. Only one of them will be used.")
+
+    resampler = av.audio.resampler.AudioResampler(
+        format="s16", layout="mono", rate=16000
+    )
+    resampled_frames = []
+    for frame in audio.decode(audio=0):
+        resample = resampler.resample(frame)
+        #for r in resample: 
+        resampled_frames.append(resample.to_ndarray().flatten())
+
+    #data8 = np.concatenate(resampled_frames, dtype=np.int16)
+    return resampled_frames
+
+def generate_stream(samples:List[bytes]) -> Iterable[speech_pb2.StreamingRecognizeRequest]:
+    for s in samples:
+        yield speech_pb2.StreamingRecognizeRequest(data = s)
 
 async def run() -> None:
     async with grpc.aio.insecure_channel('localhost:50051') as channel:
         stub = speech_pb2_grpc.SpeechStub(channel)
-        speech_summary = stub.StreamingRecognize(point_iterator)
-        speech_summary_future = stub.StreamingRecognize.future(point_iterator)
-        speech_summary = speech_summary_future.result()
+        data = read_wav('samples/testwav2.wav')
+        l = []
+        for i in data:
+            #print(i[0:10])
+            bi = audioop.lin2ulaw(i, 2)
+            l.append(bi)
+        speech_iterator = generate_stream(l)
+        speech_summary = await stub.StreamingRecognize(speech_iterator)
+        #speech_summary_future = stub.StreamingRecognize.future(speech_iterator)
         print("Speech client received: " + speech_summary.text)
 
 

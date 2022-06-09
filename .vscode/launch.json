@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Current File",
+            "name": "Python: Server",
             "type": "python",
             "request": "launch",
             "program": "${file}",
@@ -15,6 +15,14 @@
                 "--scorer",
                 "models/es/kenlm_es.scorer"
             ],
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "Python: Client",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true
         }
